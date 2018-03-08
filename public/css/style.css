@@ -1,0 +1,19 @@
+.container {
+    background-color: black;
+    height: 100%;
+}
+
+.center-input {
+    position: absolute;
+    top:30%;
+    bottom: 50%;
+    width: 50%;
+    display: block;
+    max-width: 1280px;
+    transform: translate(50%);
+    margin: 0 auto;
+}
+
+.mybtn {
+    transform: translate(10%, 10%);
+}
