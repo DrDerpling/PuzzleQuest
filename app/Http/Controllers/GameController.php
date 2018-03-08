@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class GameController extends Controller
 {
@@ -11,31 +12,32 @@ class GameController extends Controller
     {
         if (!Cache::has('game')) {
             Cache::forever('game', $this->gameLogicStarter());
+
         }
         $logicArray = Cache::get('game');
-
-        dd($logicArray);
-
-        return view('welcome.blade');
+        return view('welcome');
     }
 
     public function verify(Request $request)
     {
-        $this->validate($request,
+        $this->validate(
+            $request,
             ['answer' => 'required']
         );
         if (!Cache::has('game')) {
             Cache::forever('game', $this->gameLogicStarter());
+
         }
-        $logicArray = Cache::get('game', $this->gameLogicStarter());
+        $logicArray = Cache::get('game');
 
         if ($logicArray['currentPhase'] === 1 &&
-            $this->checkPhaseOneAnwsers(1, $request->input('answer')) !== false
+            ($name = $this->checkPhaseOneAnwsers(1, $request->input('answer'))) !== false
         ) {
-            $this->checkPhaseOneAnwsers(1, $request->input('answer'));
+            session()->put('name', $name);
+            $this->setAnswered(1, $name);
         }
 
-        return redirect()->back();;
+        return redirect()->back();
     }
 
 
@@ -72,15 +74,24 @@ class GameController extends Controller
         ];
     }
 
-    private function checkPhaseOneAnwsers($phase, $answer){
+    private function checkPhaseOneAnwsers($phase, $answer)
+    {
         $logicArray = Cache::get('game', $this->gameLogicStarter());
 
         foreach ($logicArray['phases'][$phase]['players'] as $name => $player) {
-            if(in_array($answer, $player['answers'])) {
+            if (in_array($answer, $player['answers'])) {
                 return $name;
                 break;
             }
         }
         return false;
+    }
+
+    private function setAnswered($phase, $name)
+    {
+        $logicArray = Cache::get('game', $this->gameLogicStarter());
+        $logicArray['phases'][$phase]['players'][$name]['solved'] = true;
+
+        Cache::forever('game', $logicArray);
     }
 }

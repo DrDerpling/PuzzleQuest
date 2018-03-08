@@ -25,12 +25,12 @@
 
 
 <div class="center-input">
-    <form method="post" action="">
+    <form method="post" action="{{route('verify')}}">
         {{csrf_field()}}
         <div class="row">
             <div class="input-field col s8">
-                <input id="answer" type="text" class="validate">
-                <label for="answer">Geef uw in code</label>
+                <input class="validate {{$errors->has('answer') ? 'validate invalid' : ''}} " name="answer" id="answer" type="text" >
+                <label   for="answer">Voer uw code in</label>
             </div>
             <div class="input-field col s4">
                 <button class="btn waves-effect waves-light mybtn" type="submit" name="action">Send
