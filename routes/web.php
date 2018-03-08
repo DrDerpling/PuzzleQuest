@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'GameController@game');
+
+Route::post('/verify', 'GameController@verify')->name('verify');
