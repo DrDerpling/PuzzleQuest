@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', 'GameController@game');
+Route::get('/', 'GameController@game')->name('home');
+
+Route::get('/status', 'GameController@status')->name('status');
 
 Route::post('/verify', 'GameController@verify')->name('verify');

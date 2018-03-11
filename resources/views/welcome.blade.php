@@ -23,6 +23,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 
+{{dump(session('name'))}}
 
 <div class="center-input">
     <form method="post" action="{{route('verify')}}">
