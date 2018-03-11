@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     public $currentPhase;
+    public $state;
     private $phase;
 
     public function __construct(array $attributes = [])
@@ -47,10 +48,10 @@ class Game extends Model
                             'answers' => ['5.19.20.8.5.18', '519208518'],
                             'solved' => false
                         ],
-                        'dennis' => [
-                            'answers' => ['4.5.14.14.9.19', '451414919'],
-                            'solved' => false
-                        ]
+                    ],
+                    'final' => [
+                        'answers' => ['4.5.14.14.9.19', '451414919'],
+                        'solved' => false
                     ]
                 ]
             ]
@@ -114,5 +115,27 @@ class Game extends Model
     public function setSolved($name)
     {
         $this->phase['players'][$name]['solved'] = true;
+    }
+
+    public function getPlayers()
+    {
+        return $this->phase['players'];
+    }
+
+    public function solveAll()
+    {
+        foreach ($this->phase['players'] as $name => $player) {
+            $this->phase['players'][$name]['solved'] = true;
+        }
+    }
+
+    public function isPhaseCompleted()
+    {
+        foreach ($this->phase['players'] as $name => $player) {
+            if (!$player['solved']) {
+                return false;
+            }
+        }
+        return true;
     }
 }

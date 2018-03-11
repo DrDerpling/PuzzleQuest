@@ -15,4 +15,8 @@ Route::get('/', 'GameController@game')->name('home');
 
 Route::get('/status', 'GameController@status')->name('status');
 
+Route::get('/phase-final', 'GameController@phaseFinal')->name('phase-final');
+
 Route::post('/verify', 'GameController@verify')->name('verify');
+
+route::get('/solveall', 'GameController@solveAll');

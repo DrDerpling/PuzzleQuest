@@ -2,12 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="message-box">
-
-            </div>
-        </div>
-        <div class="row">
+        <div class="m-t-30 row">
             @foreach($game->getPlayers() as $name => $player)
                 <div class="col s3 m3">
                     <div class="card">
@@ -27,8 +22,25 @@
             @endforeach
         </div>
     </div>
-
+    <div class="center-input">
+        <form method="post" action="{{route('verify')}}">
+            {{csrf_field()}}
+            <div class="row">
+                <div class="input-field col s8 m8">
+                    <input class="validate {{$errors->has('answer') ? 'validate invalid' : ''}} " name="answer"
+                           id="answer" type="text">
+                    <label for="answer">Voer de Finale code in om Fase {{$game->currentPhase}} te voltooien</label>
+                </div>
+                <div class="input-field col s4 m4">
+                    <button class="btn waves-effect waves-light mybtn" type="submit" name="action">Send
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection()
+
 @section('phase')
-@include('info', compact('game'))
+    @include('info', ['game' => $game, 'hint' => 'Er mist een persoon'])
 @endsection

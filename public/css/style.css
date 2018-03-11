@@ -1,11 +1,10 @@
 .container {
-    background-color: black;
     height: 100%;
 }
 
 .center-input {
     position: absolute;
-    top:30%;
+    top:40%;
     bottom: 50%;
     width: 50%;
     display: block;
@@ -14,6 +13,63 @@
     margin: 0 auto;
 }
 
+.m-t-30 {
+    margin-top: 30px;
+}
+
 .mybtn {
     transform: translate(10%, 10%);
+}
+
+.card-content {
+    text-align: center;
+}
+.message-box {
+    height: 300px;
+    margin-top: 45px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.phase-shower {
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    width: 300px;
+}
+.phase-shower .row {
+    margin: 0px;
+}
+
+.message-box p {
+
+   vertical-align: bottom;
+}
+
+.message {
+    vertical-align: bottom;
+    display: table-cell;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

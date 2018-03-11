@@ -9,7 +9,9 @@ class GameController extends Controller
 {
     public function game()
     {
-        if (\session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
+        if (session()->has('name') && $this->game->isPhaseCompleted()) {
+            return redirect()->route('phase-final');
+        } elseif (session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
             return redirect()->route('status');
         }
         return view('welcome', ['game' => $this->game]);
@@ -17,10 +19,21 @@ class GameController extends Controller
 
     public function status()
     {
-        if (session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
-            dd($this->game);
-            return view('status', ['game' => $this->game()]);
+        if (session()->has('name') && $this->game->isPhaseCompleted()) {
+            return redirect()->route('phase-final');
+        } elseif (session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
+            return view('status', ['game' => $this->game]);
+        } else {
+            return redirect()->home();
+        }
+    }
 
+    public function phaseFinal()
+    {
+        if (session()->has('name') && $this->game->isPhaseCompleted()) {
+            return view('phase-final', ['game' => $this->game]);
+        } elseif (session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
+            return redirect()->route('status');
         } else {
             return redirect()->home();
         }
@@ -40,5 +53,11 @@ class GameController extends Controller
         }
 
         return redirect()->home();
+    }
+
+    public function solveAll()
+    {
+        $this->game->solveAll();
+        Cache::forever('game', $this->game);
     }
 }
