@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Game extends Model
 {
     public $currentPhase;
     public $state;
     private $phase;
+    private $phaseHistory = [];
 
     public function __construct(array $attributes = [])
     {
@@ -56,8 +58,11 @@ class Game extends Model
                 ]
             ]
         ];
-
-        return $phaseArray['phases'][$phase];
+        if (isset($phaseArray['phases'][$phase])) {
+            return $phaseArray['phases'][$phase];
+        } else {
+            return [];
+        }
     }
 
     public function userSolvedPhase($name)
@@ -75,6 +80,31 @@ class Game extends Model
         }
 
         return in_array($answer, $this->getAnswers($phase, $name));
+    }
+
+    public function checkFinalAnswer($answer, $name, $phase = null)
+    {
+        if (!$phase) {
+            $phase = $this->currentPhase;
+        }
+        if ($phase === $this->currentPhase) {
+            $phaseArray = $this->phase;
+        } else {
+            $phaseArray = $this->getPhase($phase);
+        }
+        if (in_array($answer, $phaseArray['final']['answers'])) {
+            $phaseArray['final']['solved'] = true;
+            $phaseArray['solvedBy'] = $name;
+            $phaseArray['phase'] = $phase;
+            $phaseArray = [$phase => $phaseArray];
+            $this->phaseHistory = array_merge($phaseArray, $this->phaseHistory);
+            $this->currentPhase++;
+            $this->phase = $this->getPhase($this->currentPhase);
+            Cache::forever('game', $this);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getName($answers, $phase = null)
