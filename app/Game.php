@@ -72,7 +72,7 @@ class Game extends Model
                                     'solved' => false
                                 ],
                                 2 => [
-
+                                    'solved' => false
                                 ]
                             ]
                         ],
@@ -86,7 +86,7 @@ class Game extends Model
                                     'solved' => false
                                 ],
                                 2 => [
-
+                                    'solved' => false
                                 ]
                             ]
                         ],
@@ -100,7 +100,7 @@ class Game extends Model
                                     'solved' => false,
                                 ],
                                 2 => [
-
+                                    'solved' => false
                                 ]
                             ]
                         ],
@@ -114,7 +114,7 @@ class Game extends Model
                                     'solved' => false
                                 ],
                                 2 => [
-
+                                    'solved' => false
                                 ]
                             ]
                         ]
@@ -138,6 +138,7 @@ class Game extends Model
         if ($this->currentPhase === 1) {
             return $this->phase['players'][$name]['solved'];
         } elseif ($this->currentPhase) {
+            dd($this->phase['players'][$name]['questions'][1]['solved'] && );
             return ($this->phase['players'][$name]['questions'][1]['solved'] && $this->phase['players'][$name]['questions'][2]['solved']);
         }
     }
@@ -204,6 +205,7 @@ class Game extends Model
 
     private function getAnswers($phase, $name = null)
     {
+
         $phaseArray = $this->getPhase($phase);
 
         if ($name && isset($phaseArray['players'][$name])) {
@@ -224,9 +226,14 @@ class Game extends Model
         if ($this->currentPhase === 1) {
             $this->phase['players'][$name]['solved'] = true;
         } elseif ($this->currentPhase === 2) {
-
+            foreach ($this->phase['players'][$name]['questions'] as $index => $question) {
+                if (!$question['solved']) {
+                    $this->phase['players'][$name]['questions'][$index]['solved'] = true;
+                    break;
+                }
+            }
         }
-
+        Cache::forever('game', $this);
     }
 
     public function getPlayers()

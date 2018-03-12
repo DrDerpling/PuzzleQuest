@@ -8,6 +8,7 @@
             </div>
         </div>
         <form method="post" action="{{ route('verify') }}">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col s8 m8">
                     <div class="input-field">

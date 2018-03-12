@@ -49,6 +49,7 @@ class GameController extends Controller
             $request,
             ['answer' => 'required']
         );
+
         if (session()->has('name') && $this->game->isPhaseCompleted()) {
             $this->game->checkFinalAnswer($request->input('answer'), session('name'));
         }
@@ -56,8 +57,13 @@ class GameController extends Controller
             $name = $this->game->getName($request->input('answer'));
             session()->put('name', $name);
             $this->game->setSolved($name);
-            Cache::forever('game', $this->game);
-        } elseif ($this->game->currentPhase === 1 && $this->game->checkAnswer($request->input('answer'))) {
+        } elseif ($this->game->currentPhase === 2 &&
+            $this->game->checkAnswer(
+                $request->input('answer'),
+                $this->game->currentPhase,
+                session('name')
+            )
+        ) {
             $this->game->setSolved(session('name'));
         }
 
