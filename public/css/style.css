@@ -43,6 +43,15 @@
     margin: 0px;
 }
 
+@media (max-width: 600px) {
+    .phase-shower {
+        position: fixed;
+        bottom: 10px;
+        left: 5px;
+        width: 300px;
+    }
+}
+
 .message-box p {
 
    vertical-align: bottom;

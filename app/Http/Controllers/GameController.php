@@ -9,13 +9,16 @@ class GameController extends Controller
 {
     public function game()
     {
-        dd($this->game);
         if (session()->has('name') && $this->game->isPhaseCompleted()) {
             return redirect()->route('phase-final');
         } elseif (session()->has('name') && $this->game->userSolvedPhase(session('name'))) {
             return redirect()->route('status');
         }
-        return view('welcome', ['game' => $this->game]);
+        if ($this->game->currentPhase === 1) {
+            return view('welcome', ['game' => $this->game]);
+        } elseif ($this->game->currentPhase === 2) {
+            return view('question', ['game' => $this->game]);
+        }
     }
 
     public function status()
@@ -54,6 +57,8 @@ class GameController extends Controller
             session()->put('name', $name);
             $this->game->setSolved($name);
             Cache::forever('game', $this->game);
+        } elseif ($this->game->currentPhase === 1 && $this->game->checkAnswer($request->input('answer'))) {
+            $this->game->setSolved(session('name'));
         }
 
         return redirect()->home();
