@@ -11,6 +11,10 @@
             $question = $game->getQuestion(session('name'));
         @endphp
         @if(array_has($question, 'operator'))
+            <div class="row">
+                <div style="text-align: center" class="col offset-s4 offset-m4 m2 s2"><a href="{{$question['link']}}">
+                        <h4>Jouw puzzle</h4></a></div>
+            </div>
             <form method="post" action="{{ route('verify') }}">
                 {{ csrf_field() }}
                 <div class="row">
@@ -74,5 +78,5 @@
 
 @endsection()
 @section('phase')
-    @include('info', compact('game'))
+    @include('info', ['game' => $game])
 @endsection

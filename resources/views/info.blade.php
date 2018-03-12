@@ -27,5 +27,23 @@
                 {{ $hint }}
             </div>
         </div>
-        @endif
+    @endif
+    @php
+        if (session()->has('name') && session('name') === 'wilfred') {
+            $fact = 'Dennis houdt niet van tennis';
+        } elseif (session()->has('name') && session('name') === 'vivian') {
+            $fact = 'Tosti\'s horen minimaal ham & kaas te hebben';
+        }
+        $change = rand(1,10);
+    @endphp
+    @if(isset($fact) &&  $change === 1)
+        <div class="row">
+            <div style="text-align: left" class="col s4">
+                <strong>Feit</strong>:
+            </div>
+            <div class="col s8">
+                {{ $fact }}
+            </div>
+        </div>
+    @endif
 </div>

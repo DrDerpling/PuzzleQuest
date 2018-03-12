@@ -73,6 +73,7 @@ class Game extends Model
                                     ],
                                     'link' => 'https://drive.google.com/open?id=19AYeQoyuM9lGq-zhxHelchFvhmNDXMQX',
                                     'operator' => '+',
+                                    'somNum' => '1001',
                                     'solved' => false
                                 ],
                                 2 => [
@@ -95,7 +96,7 @@ class Game extends Model
                                         '2002'
                                     ],
                                     'link' => 'https://drive.google.com/file/d/1juvBFC6UffgzSFgSyC3teJSXvwWE0To9/view?usp=sharing',
-                                    'addNum' => 2002,
+                                    'somNum' => 2002,
                                     'operator' => '+',
                                     'solved' => false
                                 ],
@@ -120,6 +121,7 @@ class Game extends Model
                                     ],
                                     'link' => 'https://drive.google.com/open?id=13aBGuAxWLUsMe2GkdicR38_Xd7IaeXxP',
                                     'operator' => '+',
+                                    'somNum' => '3003',
                                     'solved' => false,
                                 ],
                                 2 => [
@@ -137,6 +139,7 @@ class Game extends Model
                                     'answers' => ['131551907514', '131551911518', '4004'],
                                     'link' => 'https://drive.google.com/open?id=11V50MuhGjYJCWhm-gzB8dr6gq7Plla5v',
                                     'operator' => '-',
+                                    'somNum' => '4004',
                                     'solved' => false
                                 ],
                                 2 => [
