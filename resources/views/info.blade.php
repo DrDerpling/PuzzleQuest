@@ -1,6 +1,6 @@
 <div class="phase-shower">
     <div class="row">
-        <div style="text-align: left" class="col s4">
+        <div style="text-align: left" class="col s2">
             <strong>Fase</strong>:
         </div>
         <div class="col s8">
@@ -10,7 +10,7 @@
 
     @if(session()->has('name'))
         <div class="row">
-            <div style="text-align: left" class="col s4">
+            <div style="text-align: left" class="col s2">
                 <strong>Speler</strong>:
             </div>
             <div class="col s8">
@@ -20,7 +20,7 @@
     @endif
     @if(isset($hint))
         <div class="row">
-            <div style="text-align: left" class="col s4">
+            <div style="text-align: left" class="col s2">
                 <strong>Hint</strong>:
             </div>
             <div class="col s8">
@@ -38,7 +38,7 @@
     @endphp
     @if(isset($fact) &&  $change === 1)
         <div class="row">
-            <div style="text-align: left" class="col s4">
+            <div style="text-align: left" class="col s2">
                 <strong>Feit</strong>:
             </div>
             <div class="col s8">

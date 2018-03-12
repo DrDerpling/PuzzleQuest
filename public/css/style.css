@@ -37,19 +37,50 @@
     position: fixed;
     bottom: 50px;
     left: 50px;
-    width: 300px;
+    width: 500px;
 }
 .phase-shower .row {
     margin: 0px;
 }
 
 @media (max-width: 600px) {
+    .message-box {
+        height: 50px;
+    }
     .phase-shower {
         position: fixed;
-        bottom: 10px;
+        top: 10px;
         left: 5px;
-        width: 300px;
+        width: 500px;
     }
+    h4 {
+        pointer-events: none;
+    }
+    a {
+        pointer-events: auto;
+        display: block;
+    }
+    form .row .col {
+        display: inline;
+        position: relative;
+    }
+    form .row .col.s3 {
+        width: 100%;
+    }
+    form .row .col.s2 {
+        width: 100%;
+    }
+    form .row .col.s1 {
+        width: 100%;
+    }
+    .row .col.s12 {
+        width: 100%;
+    }
+    .mybtn {
+        transform: translate(0);
+        width: 100%;
+    }
+
 }
 
 .message-box p {
