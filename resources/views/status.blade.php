@@ -12,9 +12,13 @@
                 <div class="col s3 m3">
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-title">{{ ucfirst($name) }}</div>
-                            @if($player['solved'])
+                            <div class="card-title">{{ ucfirst($name) }} {{isset($player['lastName']) ? ucfirst($player['lastName']) : ''}}</div>
+                            @if($game->userSolvedPhase($name) && $game->currentPhase === 1 )
                                 <p>{{$player['answers'][0]}}</p>
+                                <i style="color: green" class="large material-icons">check</i>
+                                <p>Opgelost</p>
+                                @elseif($game->userSolvedPhase($name) && $game->currentPhase === 2)
+                                <p style="font-size: 12px">{{$player['questions'][2]['question']}} {{$player['questions'][2]['answers'][0]}}</p>
                                 <i style="color: green" class="large material-icons">check</i>
                                 <p>Opgelost</p>
                             @else

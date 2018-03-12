@@ -14,7 +14,7 @@
                 <strong>Speler</strong>:
             </div>
             <div class="col s8">
-                {{ ucfirst(session('name')) }}
+                {{ ucfirst(session('name')) }} {{session()->has('lastName') ? ucfirst(session('lastName')) : ''}}
             </div>
         </div>
     @endif

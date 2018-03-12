@@ -53,8 +53,12 @@
 }
 
 .message-box p {
-
    vertical-align: bottom;
+}
+
+.operator {
+    text-align: center;
+    font-size: 30px;
 }
 
 .message {

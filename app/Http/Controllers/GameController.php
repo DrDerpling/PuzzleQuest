@@ -49,9 +49,9 @@ class GameController extends Controller
             $request,
             ['answer' => 'required']
         );
-
         if (session()->has('name') && $this->game->isPhaseCompleted()) {
             $this->game->checkFinalAnswer($request->input('answer'), session('name'));
+            return redirect()->home();
         }
         if ($this->game->currentPhase === 1 && $this->game->checkAnswer($request->input('answer'))) {
             $name = $this->game->getName($request->input('answer'));
@@ -65,6 +65,7 @@ class GameController extends Controller
             )
         ) {
             $this->game->setSolved(session('name'));
+            session()->put('lastName', $this->game->getPlayers()[session('name')]['lastName']);
         }
 
         return redirect()->home();

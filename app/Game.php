@@ -59,68 +59,96 @@ class Game extends Model
                 2 => [
                     'players' => [
                         'esther' => [
+                            'lastName' => 'overkleeft',
                             'questions' => [
                                 1 => [
                                     'question' => 'Oplosing + bestandnaam =',
                                     'answers' => [
                                         '15 22 5 18 11 12 5 5 6 20',
                                         '1522518111255620',
-                                        '15.22.5.18.11.12.5.5.6.20'
+                                        '15.22.5.18.11.12.5.5.6.20',
+                                        '1 5 2 2 5 1 8 1 1 1 2 5 4 6 1 9',
+                                        '1522518111254619',
+                                        '1001'
                                     ],
                                     'link' => 'https://drive.google.com/open?id=19AYeQoyuM9lGq-zhxHelchFvhmNDXMQX',
-                                    'addNum' => 1001,
+                                    'operator' => '+',
                                     'solved' => false
                                 ],
                                 2 => [
-                                    'solved' => false
+                                    'solved' => false,
+                                    'question' => '15 + 22 + 5 + 18 + 11 + 12 + 5 + 5 + 6 + 20 =',
+                                    'answers' => ['119']
                                 ]
                             ]
                         ],
                         'vivian' => [
+                            'lastName' => 'reistma',
                             'questions' => [
                                 1 => [
                                     'question' => 'Oplosing + bestandnaam =',
-                                    'answers' => ['18 5 9 19 20 13 1', '18591920131', '18.5.9.19.20.13.1'],
+                                    'answers' => [
+                                        '18591918129',
+                                        '18 5 9 19 18 12 9',
+                                        '18591920131',
+                                        '18 5 9 19 20 13 1',
+                                        '2002'
+                                    ],
                                     'link' => 'https://drive.google.com/file/d/1juvBFC6UffgzSFgSyC3teJSXvwWE0To9/view?usp=sharing',
                                     'addNum' => 2002,
+                                    'operator' => '+',
                                     'solved' => false
                                 ],
                                 2 => [
-                                    'solved' => false
+                                    'solved' => false,
+                                    'question' => '18 + 5 + 9 + 19 + 20 + 13 + 1 =',
+                                    'answers' => ['85']
                                 ]
                             ]
                         ],
                         'wilfred' => [
+                            'lastName' => 'hogeboom',
                             'questions' => [
                                 1 => [
-                                    'question' => 'Oplosing + bestandnaam =',
-                                    'answers' => ['815752151513', '8 15 7 5 2 15 15 13', '8.15.7.5.2.15.15.13'],
+                                    'question' => 'bestandnaam =',
+                                    'answers' => [
+                                        '815752151513',
+                                        '8 15 7 5 2 15 15 13',
+                                        '8.15.7.5.2.15.15.13',
+                                        '815752148510',
+                                        '3003'
+                                    ],
                                     'link' => 'https://drive.google.com/open?id=13aBGuAxWLUsMe2GkdicR38_Xd7IaeXxP',
-                                    'addNum' => 3003,
+                                    'operator' => '+',
                                     'solved' => false,
                                 ],
                                 2 => [
-                                    'solved' => false
+                                    'solved' => false,
+                                    'question' => '8 + 15 + 7 + 5 + 2 + 15 + 15 + 13 =',
+                                    'answers' => ['80']
                                 ]
                             ]
                         ],
                         'jordy' => [
+                            'lastName' => 'moesker',
                             'questions' => [
                                 1 => [
-                                    'question' => 'Oplosing + bestandnaam =',
-                                    'answers' => ['131551907514', '13 15 5 19 11 5 18', '13.15.5.19.11.5.18'],
+                                    'question' => ' bestandnaam =',
+                                    'answers' => ['131551907514', '131551911518', '4004'],
                                     'link' => 'https://drive.google.com/open?id=11V50MuhGjYJCWhm-gzB8dr6gq7Plla5v',
-                                    'addNum' => 4004,
+                                    'operator' => '-',
                                     'solved' => false
                                 ],
                                 2 => [
-                                    'solved' => false
+                                    'solved' => false,
+                                    'question' => '13 + 15 + 5 +19 +11 + 5 + 18 =',
+                                    'answers' => ['86']
                                 ]
                             ]
                         ]
                     ],
                     'final' => [
-                        'answers' => ['4.5.14.14.9.19', '451414919'],
+                        'answers' => ['89'],
                         'solved' => false
                     ],
                 ]
@@ -138,7 +166,6 @@ class Game extends Model
         if ($this->currentPhase === 1) {
             return $this->phase['players'][$name]['solved'];
         } elseif ($this->currentPhase) {
-            dd($this->phase['players'][$name]['questions'][1]['solved'] && );
             return ($this->phase['players'][$name]['questions'][1]['solved'] && $this->phase['players'][$name]['questions'][2]['solved']);
         }
     }
@@ -243,8 +270,15 @@ class Game extends Model
 
     public function solveAll()
     {
-        foreach ($this->phase['players'] as $name => $player) {
-            $this->phase['players'][$name]['solved'] = true;
+        if ($this->currentPhase === 1) {
+            foreach ($this->phase['players'] as $name => $player) {
+                $this->phase['players'][$name]['solved'] = true;
+            }
+        } elseif ($this->currentPhase === 2) {
+            foreach ($this->phase['players'] as $name => $player) {
+                $this->phase['players'][$name]['questions'][1]['solved'] = true;
+                $this->phase['players'][$name]['questions'][2]['solved'] = true;
+            }
         }
     }
 
@@ -256,6 +290,7 @@ class Game extends Model
                     return false;
                 }
             }
+            return true;
         } elseif ($this->currentPhase === 2) {
             foreach ($this->phase['players'] as $name => $player) {
                 foreach ($player['questions'] as $question) {
@@ -264,9 +299,10 @@ class Game extends Model
                     }
                 }
             }
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public function getQuestion($name)
