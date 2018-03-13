@@ -2,12 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="message-box">
-
-            </div>
-        </div>
-        <div class="row">
+        <div class="row m-t-100">
             @foreach($game->getPlayers() as $name => $player)
                 <div class="col s3 m3">
                     <div class="card">
@@ -35,6 +30,11 @@
             @endforeach
         </div>
     </div>
+
+@section('css')
+    <link type="text/css" rel="stylesheet" href="css/phase-final.css">
+@endsection
+
 
 @endsection()
 @section('phase')

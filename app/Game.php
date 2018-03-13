@@ -138,7 +138,7 @@ class Game extends Model
                                     'question' => ' bestandnaam =',
                                     'answers' => ['131551907514', '4004', '131551911518'],
                                     'link' => 'https://drive.google.com/open?id=11V50MuhGjYJCWhm-gzB8dr6gq7Plla5v',
-                                    'operator' => '',
+                                    'operator' => '-',
                                     'somNum' => '4004',
                                     'solved' => false
                                 ],
@@ -163,7 +163,7 @@ class Game extends Model
                                 1 => [
                                     'question' => 'dy akfzfrbckrbkt <br> <strong>Code: JM</strong>',
                                     'answers' => [
-                                        'op vierentwintig'
+                                        'op vierentwintig', 'op 24'
                                     ],
                                     'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
                                     'solved' => false
@@ -189,7 +189,7 @@ class Game extends Model
                                 1 => [
                                     'question' => 'acmwech : rccmwei rcmduqow <br> <strong>Code: VR</strong>',
                                     'answers' => [
-                                        'dertien : veertig verwacht'
+                                        'dertien : veertig verwacht', '13:40 verwacht', '13 : 40 verwacht'
                                     ],
                                     'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
                                     'solved' => false,
@@ -209,8 +209,8 @@ class Game extends Model
                         ]
                     ],
                     'final' => [
-                        'question' => ['tzdbf addzb akmh kr ocdwwf'],
-                        'answers' => ['bij grote voort 5 in zwolle'],
+                        'question' => ['jkm tzdbf addzb akmh kr ocdwwf'],
+                        'answers' => ['bij grote voort 5 in zwolle', 'bij grote voort vijf in zwolle'],
                         'solved' => false
                     ],
                 ]

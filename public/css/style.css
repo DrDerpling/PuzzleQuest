@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+.m-t-100 {
+    margin-top: 100px;
+}
+
 .center-input {
     position: absolute;
     top:40%;
@@ -41,12 +45,25 @@
     bottom: 50px;
     left: 50px;
     width: 500px;
+    pointer-events: none;
+    height: 100px;
 }
 .phase-shower .row {
     margin: 0px;
 }
 
 @media (max-width: 600px) {
+
+    .center-input{
+        width: 100%;
+        transform: translate(0%);
+        top: 10%;
+    }
+
+    .center-input .col.s8, .center-input .col.s4 {
+        width: 100%;
+    }
+
     .message-box {
         height: 50px;
     }

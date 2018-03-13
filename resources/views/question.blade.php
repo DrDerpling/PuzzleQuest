@@ -58,7 +58,7 @@
         <form method="post" action="{{ route('verify') }}">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col s8 m8">
+                <div class="col s8 m10">
                     <div class="input-field">
                         <input class="validate {{$errors->has('answer') ? 'validate invalid' : ''}} "
                                name="answer"
@@ -66,7 +66,7 @@
                         <label for="answer"> {{ $question['question'] }}</label>
                     </div>
                 </div>
-                <div class="input-field col s4 m4">
+                <div class="input-field col s4 m2">
                     <button class="btn waves-effect waves-light mybtn" type="submit" name="action">Send
                         <i class="material-icons right">send</i>
                     </button>
@@ -79,18 +79,18 @@
             {{ csrf_field() }}
             <a href="{{$question['link']}}">
                 <div class="row">
-                    <div style="text-align: center" class="col m10 s10">
+                    <div style="text-align: center" class="col m12 s12">
                         <h4>Decrypter</h4>
                     </div>
                 </div>
             </a>
             <div class="row">
-                <div style="text-align: center" class="col m10 s10">
+                <div style="text-align: center" class="col m12 s12">
                     <h6>{!! $question['question'] !!}</h6>
                 </div>
             </div>
             <div class="row">
-                <div class="col s8 m8">
+                <div class="col s8 m10">
                     <div class="input-field">
                         <input class="validate {{$errors->has('answer') ? 'validate invalid' : ''}} "
                                name="answer"
@@ -98,7 +98,7 @@
                         <label for="answer"> Antwoord </label>
                     </div>
                 </div>
-                <div class="input-field col s4 m4">
+                <div class="input-field col s4 m2">
                     <button class="btn waves-effect waves-light mybtn" type="submit" name="action">Send
                         <i class="material-icons right">send</i>
                     </button>

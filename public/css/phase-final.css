@@ -1,0 +1,19 @@
+@media (max-width: 600px) {
+    .container {
+        margin-top: 100px;
+    }
+
+    .container .col.s3 {
+        width: 100%;
+    }
+
+    .center-input {
+        width: 100%;
+        position: relative;
+        transform: translate(0%);
+    }
+
+    .phase-final .col.s8, .phase-final .col.s4 {
+        width: 100%;
+    }
+}
