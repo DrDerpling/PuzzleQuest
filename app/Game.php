@@ -297,9 +297,7 @@ class Game extends Model
 
     private function getAnswers($phase, $name = null)
     {
-
         $phaseArray = $this->getPhase($phase);
-
         if ($name && isset($phaseArray['players'][$name])) {
             return $phaseArray['players'][$name]['answers'];
         } else {

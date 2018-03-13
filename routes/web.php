@@ -19,4 +19,6 @@ Route::get('/phase-final', 'GameController@phaseFinal')->name('phase-final');
 
 Route::post('/verify', 'GameController@verify')->name('verify');
 
+Route::post('/login', 'GameController@login')->name('login');
+
 route::get('/solveall', 'GameController@solveAll');
