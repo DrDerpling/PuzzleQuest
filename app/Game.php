@@ -136,9 +136,9 @@ class Game extends Model
                             'questions' => [
                                 1 => [
                                     'question' => ' bestandnaam =',
-                                    'answers' => ['131551907514', '131551911518', '4004'],
+                                    'answers' => ['131551907514', '4004', '131551911518'],
                                     'link' => 'https://drive.google.com/open?id=11V50MuhGjYJCWhm-gzB8dr6gq7Plla5v',
-                                    'operator' => '-',
+                                    'operator' => '',
                                     'somNum' => '4004',
                                     'solved' => false
                                 ],
@@ -154,8 +154,68 @@ class Game extends Model
                         'answers' => ['89'],
                         'solved' => false
                     ],
+                ],
+                3 => [
+                    'players' => [
+                        'jordy' => [
+                            'lastName' => 'moesker',
+                            'questions' => [
+                                1 => [
+                                    'question' => 'dy akfzfrbckrbkt <br> <strong>Code: JM</strong>',
+                                    'answers' => [
+                                        'op vierentwintig'
+                                    ],
+                                    'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
+                                    'solved' => false
+                                ]
+                            ]
+                        ],
+                        'esther' => [
+                            'lastName' => 'overkleeft',
+                            'questions' => [
+                                1 => [
+                                    'question' => 'saagd ms <br> <strong>Code: EO</strong>',
+                                    'answers' => [
+                                        'maart om'
+                                    ],
+                                    'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
+                                    'solved' => false
+                                ],
+                            ]
+                        ],
+                        'vivian' => [
+                            'lastName' => 'reistma',
+                            'questions' => [
+                                1 => [
+                                    'question' => 'acmwech : rccmwei rcmduqow <br> <strong>Code: VR</strong>',
+                                    'answers' => [
+                                        'dertien : veertig verwacht'
+                                    ],
+                                    'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
+                                    'solved' => false,
+                                ],
+                            ]
+                        ],
+                        'wilfred' => [
+                            'lastName' => 'hogeboom',
+                            'questions' => [
+                                1 => [
+                                    'question' => 'demcbrcjxrzc ulqqzr <br> <strong>Code: WH</strong>',
+                                    'answers' => ['frankenstein jullie'],
+                                    'link' => 'http://www.claymaze.com/wp-content/uploads/Spy-Decoder-Wheel-Random-Alphabet.pdf',
+                                    'solved' => false
+                                ],
+                            ]
+                        ]
+                    ],
+                    'final' => [
+                        'question' => ['tzdbf addzb akmh kr ocdwwf'],
+                        'answers' => ['bij grote voort 5 in zwolle'],
+                        'solved' => false
+                    ],
                 ]
             ]
+
         ];
         if (isset($phaseArray['phases'][$phase])) {
             return $phaseArray['phases'][$phase];
@@ -168,8 +228,10 @@ class Game extends Model
     {
         if ($this->currentPhase === 1) {
             return $this->phase['players'][$name]['solved'];
-        } elseif ($this->currentPhase) {
+        } elseif ($this->currentPhase === 2) {
             return ($this->phase['players'][$name]['questions'][1]['solved'] && $this->phase['players'][$name]['questions'][2]['solved']);
+        } elseif ($this->currentPhase === 3) {
+            return $this->phase['players'][$name]['questions'][1]['solved'];
         }
     }
 
@@ -184,9 +246,9 @@ class Game extends Model
 
         if ($phase === 1) {
             return in_array($answer, $this->getAnswers($phase, $name));
-        } elseif ($phase === 2) {
+        } elseif ($phase === 2 || $phase === 3) {
             $question = $this->getQuestion($name);
-            return in_array($answer, $question['answers']);
+            return in_array(strtolower($answer), $question['answers']);
         }
     }
 
@@ -255,7 +317,7 @@ class Game extends Model
     {
         if ($this->currentPhase === 1) {
             $this->phase['players'][$name]['solved'] = true;
-        } elseif ($this->currentPhase === 2) {
+        } elseif ($this->currentPhase === 2 || $this->currentPhase === 3) {
             foreach ($this->phase['players'][$name]['questions'] as $index => $question) {
                 if (!$question['solved']) {
                     $this->phase['players'][$name]['questions'][$index]['solved'] = true;
@@ -282,6 +344,10 @@ class Game extends Model
                 $this->phase['players'][$name]['questions'][1]['solved'] = true;
                 $this->phase['players'][$name]['questions'][2]['solved'] = true;
             }
+        } elseif ($this->currentPhase === 3) {
+            foreach ($this->phase['players'] as $name => $player) {
+                $this->phase['players'][$name]['questions'][1]['solved'] = true;
+            }
         }
     }
 
@@ -294,7 +360,7 @@ class Game extends Model
                 }
             }
             return true;
-        } elseif ($this->currentPhase === 2) {
+        } elseif ($this->currentPhase === 2 || $this->currentPhase === 3) {
             foreach ($this->phase['players'] as $name => $player) {
                 foreach ($player['questions'] as $question) {
                     if (!$question['solved']) {
@@ -316,5 +382,12 @@ class Game extends Model
             }
         }
         return false;
+    }
+
+    public function getFinalQuestion()
+    {
+        if ($this->currentPhase === 3) {
+            return $this->phase['final']['question'][0];
+        }
     }
 }

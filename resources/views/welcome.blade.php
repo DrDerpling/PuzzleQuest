@@ -1,14 +1,6 @@
 @extends('master')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="message-box">
-
-            </div>
-        </div>
-
-    </div>
     <div class="center-input">
         <form method="post" action="{{route('verify')}}">
             {{csrf_field()}}

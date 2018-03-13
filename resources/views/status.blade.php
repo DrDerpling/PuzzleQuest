@@ -13,12 +13,16 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-title">{{ ucfirst($name) }} {{isset($player['lastName']) ? ucfirst($player['lastName']) : ''}}</div>
-                            @if($game->userSolvedPhase($name) && $game->currentPhase === 1 )
+                            @if($game->userSolvedPhase($name) && $game->currentPhase === 1)
                                 <p>{{$player['answers'][0]}}</p>
                                 <i style="color: green" class="large material-icons">check</i>
                                 <p>Opgelost</p>
                                 @elseif($game->userSolvedPhase($name) && $game->currentPhase === 2)
                                 <p style="font-size: 12px">{{$player['questions'][2]['question']}} {{$player['questions'][2]['answers'][0]}}</p>
+                                <i style="color: green" class="large material-icons">check</i>
+                                <p>Opgelost</p>
+                                @elseif($game->userSolvedPhase($name) && $game->currentPhase === 3)
+                                <p style="font-size: 12px">{!! $player['questions'][1]['question'] !!} <br> {!! $player['questions'][1]['answers'][0] !!}</p>
                                 <i style="color: green" class="large material-icons">check</i>
                                 <p>Opgelost</p>
                             @else

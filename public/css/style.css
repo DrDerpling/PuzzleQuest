@@ -12,6 +12,9 @@
     transform: translate(50%);
     margin: 0 auto;
 }
+.decrypter {
+    top: 30%;
+}
 
 .m-t-30 {
     margin-top: 30px;
